@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  db:
+    build: "./database"
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysql-container
+  api:
+    build: "./"
+    container_name: go-container
+    volumes:
+      - ./:/go/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
