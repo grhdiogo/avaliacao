@@ -1,21 +1,22 @@
 import express from 'express'
-import productController from './controller/productController'
+import routes from './routes'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import Product from './model/Product'
+import Sale from './model/Sale'
+import Purchase from './model/Purchase'
+
 
 const app = express()
 
 
 declare module 'express-session' {
     interface SessionData {
-        product:Product[]
+        products:Product[]
+        sales:Sale[]
+        purchases:Purchase[]
     }
 }
-
-let teste = "teste"
-
-app.set('teste', teste);
 
 app.use(express.json())
 app.use(cookieParser())
@@ -25,11 +26,7 @@ app.use(session({
     resave:true,
     saveUninitialized:true,
 }))
-app.get("/",productController.createProduct)
-app.get("/product/:id",productController.searchProduct)
-app.get("/product/update/:id",productController.updateProduct)
-app.get("/products",productController.searchAll)
 
-
+app.use(routes)
 
 app.listen(3334)
