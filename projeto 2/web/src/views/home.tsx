@@ -31,11 +31,11 @@ export default function Home(){
                 </thead>
                 <tbody>
                     {products.map(product=>{return(
-                        <th key={product.id} scope="row">
+                        <tr key={product.id}>
                             <td>{product.name}</td>
                             <td>{product.description}</td>
                             <td>{product.stock}</td>
-                        </th>
+                        </tr>
                     )})}
                 </tbody>
             </Table>

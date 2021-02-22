@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom'
 
 import Routes from '../routes/routes'
 
+import '../styles/layout.css'
+
 export default function Layout(){
     return(
         <div className="layoutContainer">
