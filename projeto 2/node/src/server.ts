@@ -2,6 +2,7 @@ import express from 'express'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import path from 'path'
 
 import routes from './routes'
 import Product from './model/Product'
@@ -22,6 +23,9 @@ declare module 'express-session' {
 
 app.use(express.json())
 app.use(cookieParser())
+
+app.use(express.static(path.join(__dirname,"../../web/build")))
+
 app.use(cors({
     origin:["http://localhost:3000"],
     methods:["GET","POST","PUT"],
@@ -33,6 +37,13 @@ app.use(session({
     resave:true,
     saveUninitialized:true,
 }))
+
+app.get('/', (req,res) => {
+    const x = path.join(__dirname,'../../web/build/index.html')
+    res.sendFile(x);
+    console.log(x)
+
+  });
 
 app.use(routes)
 
