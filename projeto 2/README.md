@@ -30,17 +30,17 @@ Web:
 git clone https://github.com/grhdiogo/avaliacao.git
 ```
 
-- Entre na pasta criada e rode yarn ou npm install
-
+- Entre na pasta avaliacao/projeto2 e rode yarn ou npm install
+- 
+```
 npm install
 
 ```
-
-
 - Rode npm start
 
 ```
 npm start
+```
 
 # 🏗 Execução
 
