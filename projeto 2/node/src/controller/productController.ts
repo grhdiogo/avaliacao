@@ -8,15 +8,16 @@ import Purchase from '../model/Purchase'
 
 function productExist(req: Request, res: Response,id){
     const sess = req.session
-    const products = sess.products || []
-    for (let index = 0; index < products.length; index++) {
+    const products = sess.products || [] // Criar variável que receve a variável produtos da sessão, e se não foi inicializada , é inicialidada.
+    for (let index = 0; index < products.length; index++) { 
         if(id==products[index].id){
             return true
         }
     }
     return false
+}// Verifica a existência de produtos dentro do array producs da da sessão, e retornando verdadeiro ou falso
 
-}
+
 function verifyStock(req: Request, res: Response,id,quant){
     const sess = req.session
     const products = sess.products || []
@@ -29,7 +30,7 @@ function verifyStock(req: Request, res: Response,id,quant){
                 return false
             }
         }
-    }
+    }// Recebe id do produto e quantidade desejada, e verifica se a quantidade desse produto está disponível, retornando verdadeiro caso a quantidade seja maior ou igual a desejada ou falso caso não tenha.
 
 }
 function updateStock(req: Request, res: Response,id,quant,method){
@@ -44,7 +45,7 @@ function updateStock(req: Request, res: Response,id,quant,method){
            }
         }
     }
-}
+}/* Recebe id do produto, quantidade e método, alterando o estoque do produto dependendo do método, sendo possível "sell" para venda e "buy" para compra do produto */
 
 
 export default{
@@ -56,20 +57,20 @@ export default{
             name,
             stock,
             description,
-        } = req.body
+        } = req.body //recebe os dados da requisição 
 
         let schema = yup.object().shape({
             name: yup.string().required(),
             stock:yup.number().required(),
             description:yup.string().required(),
-        })
+        }) /// cria um esqueleto do esquema para verificar o tipo e exitência da variável
 
         schema.validate({
             name:name,
             stock:stock,
             description:description,
         }).then(()=>{
-            product.setId(products.length+1)
+            product.setId(products.length+1) // Pega o valor da variável dos produtos e atribui +1, funcionando como auto increment
             product.setName(name)
             product.setStock(stock)
             product.setDescription(description)
@@ -79,14 +80,14 @@ export default{
             res.json({"message":"Produto cadastrado"})
         }).catch((err)=>{
             res.json(err.message)
-        })//verifica existência e tipo dos dados 
+        })//verifica existência e tipo dos dados e caso esteja tudo certo, atribui a váriavel product do tipo Product os dados e salva na sessão, caso não, retorna um de erro.
     },
 
     searchProduct(req: Request, res: Response){
         const sess = req.session
         const product = new Product
         const products = sess.products || []
-        const {id} = req.params
+        const {id} = req.params // Atribui a variável id o valor do parametro id do get.
 
         if (productExist(req,res,id)){
             for (let index = 0; index < products.length; index++) {
@@ -100,7 +101,7 @@ export default{
         }
 
 
-    },
+    },//Procura um produto e retorna o mesmo se existir, caso não existe retorna uma mensagem.
 
     updateProduct(req: Request, res: Response){
         const sess = req.session
@@ -130,7 +131,7 @@ export default{
             stock:stock,
             description:description,
         }).then(()=>{
-            if (productExist(req,res,id)){
+            if (productExist(req,res,id)){ // Verifica se o produto com determinado ID existe
                 for (let index = 0; index < products.length; index++) {
                     if(id==products[index].id){
                         products[index]=product
@@ -147,13 +148,13 @@ export default{
         
 
 
-    },
+    },// Recebe os paramêtros e atribui às variáveis, faz a autenticação dos dados para atualizar dados do usuário, e se existir algum erro ele retorna.
 
     searchAll(req: Request, res: Response){
         const sess = req.session
         const products = sess.products || []
         res.json(products)
-    },
+    },// Retorna todos produtos cadastrados
 
     sellProduct(req: Request, res: Response){
         const{
@@ -178,9 +179,9 @@ export default{
             price:price,
             quantity:quantity
         }).then(()=>{
-            if (productExist(req,res,productID)){
+            if (productExist(req,res,productID)){ // Verifica existência do produto
                 console.log(quantity)
-                if(verifyStock(req,res,productID,quantity)){
+                if(verifyStock(req,res,productID,quantity)){ // Verifica se a quantidade para venda do produto existe em estoque
                     updateStock(req,res,productID,quantity,"sell")
                     sale.setID(sales.length+1)
                     sale.setDate(date)
@@ -204,7 +205,7 @@ export default{
 
 
         
-    },
+    },//Faz a venda de um produto e registra os dados na variável de venda e atualiza o estoque na variável de produtos
 
     buyProduct(req: Request, res: Response){
         const{
@@ -229,7 +230,7 @@ export default{
             price:price,
             quantity:quantity
         }).then(()=>{
-            if (productExist(req,res,productID)){
+            if (productExist(req,res,productID)){ // verifica existência do produto
                 purchase.setID(purchases.length+1)
                 purchase.setDate(date)
                 purchase.setProductID(productID)
@@ -249,7 +250,7 @@ export default{
 
 
         
-    },
+    },//Faz a compra de um produto e registra os dados na variável de compra e atualiza o estoque na variável de produtos
 
     report(req: Request, res: Response){
         const sess = req.session
@@ -263,7 +264,7 @@ export default{
 
         let totalOfSales = 0
         let quantOfSales = 0
-        let qtnOfPrdtSold = 0
+        let qtnOfPrdtSold = 0 // cria as variáveis do objeto
 
         let report:Array<Object> = []; //Criou array de objeto e inicio o array
 
@@ -275,14 +276,14 @@ export default{
                     qtnOfPrdtSold = qtnOfPrdtSold + sales[index].quantity
                     quantOfSales ++
                 }
-            }
+            }// Percore array de vendas, atribuindo os valores determinados por produto
             for (let index = 0; index < purchases.length; index++) {
                 if(purchases[index].productID == products[indexProduct].id){
                     totalOfPurchases = totalOfPurchases + purchases[index].total
                     qtnOfPrdtPurchased = qtnOfPrdtPurchased + purchases[index].quantity
                     quantOfPurchases ++
                 }
-            }
+            }// Percore array de compras, atribuindo os valores determinados por produto
 
             report.push({
                 "Id":products[indexProduct].id,
@@ -295,7 +296,7 @@ export default{
                 "TotalOfSales":totalOfSales,
                 "Stock":products[indexProduct].stock,
                 "Profit": totalOfSales - totalOfPurchases
-            })
+            })// Adiciono no array o objeto com as informações de cada produto
             totalOfPurchases = 0
             quantOfPurchases = 0
             qtnOfPrdtPurchased = 0
@@ -303,7 +304,7 @@ export default{
             totalOfSales = 0
             quantOfSales = 0
             qtnOfPrdtSold =0 
-
+            // zero as variáveis para serem reutilizadas dentro do for
         }
         res.json(report)
 
@@ -328,7 +329,7 @@ export default{
             }
         }
         
-    }
+    }// Recebo id e quantidade e verifico se determinado produto tem aquela quantidade em estoque disponível
 
 
     

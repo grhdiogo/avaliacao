@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react'
+import { Table } from 'reactstrap';
 
 import api from '../services/api'
 
@@ -20,24 +21,24 @@ export default function Home(){
 
     return(
         <div>
-            <table>
+            <Table>
                 <thead>
                     <tr>
-                        <td>Nome</td>
-                        <td>Descrição</td>
-                        <td>Quantidade em Estoque</td>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Quantidade em Estoque</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map(product=>{return(
-                        <tr key={product.id}>
+                        <th key={product.id} scope="row">
                             <td>{product.name}</td>
                             <td>{product.description}</td>
                             <td>{product.stock}</td>
-                        </tr>
+                        </th>
                     )})}
                 </tbody>
-            </table>
+            </Table>
         </div>
     )
 }

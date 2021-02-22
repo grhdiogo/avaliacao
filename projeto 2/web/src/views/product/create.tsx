@@ -1,5 +1,6 @@
 import React,{useState,FormEvent} from 'react'
 import {useHistory} from 'react-router-dom'
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../../services/api'
 
@@ -23,9 +24,17 @@ export default function Create(){
     }
     return(
         <div>
-            <label>Nome</label><input id="name" value={name} onChange={event => setName(event.target.value)}/><br/>
-            <label>Descrição</label><input id="description" value={description} onChange={event => setDescription(event.target.value)}/><br/>
-            <input type="submit" value="Enviar" onClick={submit}/>
+            <Form>
+                <FormGroup>
+                    <Label>Nome</Label>
+                    <Input id="name" value={name} onChange={event => setName(event.target.value)}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label>Descrição</Label>
+                    <Input id="description" value={description} onChange={event => setDescription(event.target.value)}/>
+                </FormGroup>
+                <Button onClick={submit}>Enviar</Button>
+            </Form>
         </div>
     )
 }

@@ -41,4 +41,4 @@ export default class Buy{
     }
     
 
-}
+}//Criação da classe de compras com getters e setters

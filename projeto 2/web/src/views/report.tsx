@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react'
+import { Table } from 'reactstrap';
 
 import api from '../services/api'
 
@@ -27,19 +28,19 @@ export default function Report(){
 
     return(
         <div>
-            <table>
+            <Table>
                 <thead>
                     <tr>
-                        <td>Id</td>
-                        <td>Nome</td>
-                        <td>Quantidade de produtos comprados</td>
-                        <td>Quantidade de compras</td>
-                        <td>Valor total das compras</td>
-                        <td>Quantidade de produtos vendidos</td>
-                        <td>Quantidade de vendas</td>
-                        <td>Valor total das vendas</td>
-                        <td>Estoque</td>
-                        <td>Lucro</td>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Quantidade de produtos comprados</th>
+                        <th>Quantidade de compras</th>
+                        <th>Valor total das compras</th>
+                        <th>Quantidade de produtos vendidos</th>
+                        <th>Quantidade de vendas</th>
+                        <th>Valor total das vendas</th>
+                        <th>Estoque</th>
+                        <th>Lucro</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +59,7 @@ export default function Report(){
                         </tr>
                     )})}
                 </tbody>
-            </table>
+            </Table>
         </div>
     )
 }

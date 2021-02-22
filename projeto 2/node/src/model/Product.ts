@@ -14,7 +14,7 @@ export default class Product{
     }
     setStock(stock){
         this.stock=stock
-    }
+    } // Crio os métodos "Set" de cada atributo
 
     getName(){
         return this.name
@@ -27,7 +27,7 @@ export default class Product{
     }
     getStock(){
         return this.stock
-    }
+    } // Crio os métodos "Get" de cada atributo
 
     setProduct(Product: Product){
         this.setName(Product.name)
@@ -35,5 +35,5 @@ export default class Product{
 
         this.setDescription(Product.description)
         this.setStock(Product.stock)
-    }
+    }// Função onde recebe um produto e atribui os valores dele às variaveis correspondentes.
 }

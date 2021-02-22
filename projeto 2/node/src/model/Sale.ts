@@ -39,4 +39,4 @@ export default class Sell{
     setDate(date){
         this.date=date
     }
-}
+}//Criação da classe de vendas com getters e setters
