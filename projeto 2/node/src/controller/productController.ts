@@ -55,7 +55,6 @@ export default{
         const{
             name,
             stock,
-            price,
             description,
         } = req.body
 
@@ -63,20 +62,17 @@ export default{
             name: yup.string().required(),
             stock:yup.number().required(),
             description:yup.string().required(),
-            price:yup.number().required(),
         })
 
         schema.validate({
             name:name,
             stock:stock,
             description:description,
-            price:price
         }).then(()=>{
             product.setId(products.length+1)
             product.setName(name)
             product.setStock(stock)
             product.setDescription(description)
-            product.setPrice(price)
 
             products.push(product)
             sess.products=products
@@ -114,14 +110,12 @@ export default{
             id,
             name,
             stock,
-            price,
             description,
         } = req.body
 
         product.setId(id)
         product.setName(name)
         product.setStock(stock)
-        product.setPrice(price)
         product.setDescription(description)
 
         let schema = yup.object().shape({
@@ -129,14 +123,12 @@ export default{
             name: yup.string().required(),
             stock:yup.number().required(),
             description:yup.string().required(),
-            price:yup.number().required(),
         })
         schema.validate({
             id:id,
             name:name,
             stock:stock,
             description:description,
-            price:price
         }).then(()=>{
             if (productExist(req,res,id)){
                 for (let index = 0; index < products.length; index++) {

@@ -6,7 +6,6 @@ interface Product{
     id:number;
     name:string;
     description:string;
-    price:number;
     stock:number;
 }
 
@@ -18,6 +17,7 @@ export default function Home(){
             setProducts(res.data)
         })
     },[])
+
     return(
         <div>
             <table>
@@ -25,7 +25,6 @@ export default function Home(){
                     <tr>
                         <td>Nome</td>
                         <td>Descrição</td>
-                        <td>Preço</td>
                         <td>Quantidade em Estoque</td>
                     </tr>
                 </thead>
@@ -34,13 +33,11 @@ export default function Home(){
                         <tr key={product.id}>
                             <td>{product.name}</td>
                             <td>{product.description}</td>
-                            <td>{product.price}</td>
                             <td>{product.stock}</td>
                         </tr>
                     )})}
                 </tbody>
             </table>
-            
         </div>
     )
 }

@@ -2,7 +2,6 @@ export default class Product{
     id
     name
     description
-    price
     stock
     setName(name){
         this.name=name
@@ -16,9 +15,6 @@ export default class Product{
     setStock(stock){
         this.stock=stock
     }
-    setPrice(price){
-        this.price=price
-    }
 
     getName(){
         return this.name
@@ -31,9 +27,6 @@ export default class Product{
     }
     getStock(){
         return this.stock
-    }
-    getPrice(){
-        return this.price
     }
 
     setProduct(Product: Product){
